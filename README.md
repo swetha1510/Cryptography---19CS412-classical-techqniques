@@ -31,50 +31,57 @@ Implementation using C or pyhton code
 
 ## PROGRAM:
 PROGRAM:
-CaearCipher.
+'''
 #include <stdio.h>
-#include <stdlib.h>
- 
-// Function to perform Caesar Cipher encryption void caesarEncrypt(char *text, int key) {
-   for (int i = 0; text[i] != '\0'; i++) { char c = text[i];
-// Check if the character is an uppercase letter 
-    if (c >= 'A' && c <= 'Z') {
-    text[i] = ((c - 'A' + key) % 26 + 26) % 26 + 'A';
+#include <string.h>
+
+int main()
+ {
+    int key;
+    char s[1000];
+
+    printf("Enter a plaintext to encrypt:\n");
+    fgets(s, sizeof(s), stdin);
+    printf("Enter key:\n");
+    scanf("%d", &key);
+
+    int n = strlen(s);
+
+    for (int i = 0; i < n; i++) 
+    {
+        char c = s[i];
+        if (c >= 'a' && c <= 'z') 
+        {
+            s[i] = 'a' + (c - 'a' + key) % 26;
+        }
+        else if (c >= 'A' && c <= 'Z')
+        {
+            s[i] = 'A' + (c - 'A' + key) % 26;
+        }
     }
-// Check if the character is a lowercase letter
-    else if (c >= 'a' && c <= 'z') {
-        text[i] = ((c - 'a' + key) % 26 + 26) % 26 + 'a';
+    printf("Encrypted message: %s\n", s);
+
+    for (int i = 0; i < n; i++)
+    {
+        char c = s[i];
+        if (c >= 'a' && c <= 'z') 
+        {
+            s[i] = 'a' + (c - 'a' - key + 26) % 26; 
+        }
+        else if (c >= 'A' && c <= 'Z')
+        {
+            s[i] = 'A' + (c - 'A' - key + 26) % 26; 
+        }
     }
-// Ignore non-alphabetic characters
-    }
+    printf("Decrypted message: %s\n", s);
+
+    return 0;
 }
-
-// Function to perform Caesar Cipher decryption 
-void caesarDecrypt(char *text, int key) {
-// Decryption is the same as encryption with a negative key 
-caesarEncrypt(text, -key);
-}
-
-int main() {
-char message[100]; // Declare a character array to store the message int key;
-
-printf("Enter the message to encrypt: ");
-fgets(message, sizeof(message), stdin); // Read input from the user printf("Enter the Caesar Cipher key (an integer): ");
-scanf("%d", &key); // Read the key from the user
-// Encrypt the message using the Caesar Cipher caesarEncrypt(message, key); printf("Encrypted Message: %s", message);
-// Decrypt the message back to the original
- 
-caesarDecrypt(message, key); printf("Decrypted Message: %s", message); return 0;
-}
-
+```
 
 ## OUTPUT:
 OUTPUT:
-Simulating Caesar Cipher
-
-
-Input : Anna University
-Encrypted Message : Dqqd Xqlyhuvlwb Decrypted Message : Anna University
+![Screenshot 2024-10-17 090948](https://github.com/user-attachments/assets/707f37aa-b9a2-4088-b98a-688fc764c51e)
 
 ## RESULT:
 The program is executed successfully
@@ -121,68 +128,131 @@ To decrypt, use the INVERSE (opposite) of the last 3 rules, and the 1st as-is (d
 ## PROGRAM:
 '''
 
-#include <stdio.h>
-#include <string.h>
 
-void encrypt(char message[], int shift) {
-    char ch;
-    for (int i = 0; message[i] != '\0'; ++i) {
-        ch = message[i];
-        if (ch >= 'a' && ch <= 'z') {
-            ch = ch + shift;
-            if (ch > 'z') {
-                ch = ch - 'z' + 'a' - 1;
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<ctype.h>
+#define MX 5
+
+void playfair(char ch1, char ch2, char key[MX][MX])
+{
+    int i, j, w, x, y, z;
+    FILE *out;
+    if ((out = fopen("cipher.txt", "a+")) == NULL)
+    {
+        printf("File Corrupted.");
+    }
+    for (i = 0; i < MX; i++)
+    {
+        for (j = 0; j < MX; j++)
+        {
+            if (ch1 == key[i][j])
+            {
+                w = i;
+                x = j;
             }
-            message[i] = ch;
-        } else if (ch >= 'A' && ch <= 'Z') {
-            ch = ch + shift;
-            if (ch > 'Z') {
-                ch = ch - 'Z' + 'A' - 1;
+            else if (ch2 == key[i][j])
+            {
+                y = i;
+                z = j;
             }
-            message[i] = ch;
         }
     }
-    printf("Encrypted message: %s\n", message);
+    if (w == y)
+    {
+        x = (x + 1) % 5;
+        z = (z + 1) % 5;
+        printf("%c%c", key[w][x], key[y][z]);
+        fprintf(out, "%c%c", key[w][x], key[y][z]);
+    } 
+    else if (x == z) 
+    {
+        w = (w + 1) % 5;
+        y = (y + 1) % 5;
+        printf("%c%c", key[w][x], key[y][z]);
+        fprintf(out, "%c%c", key[w][x], key[y][z]);
+    } 
+    else 
+    {
+        printf("%c%c", key[w][z], key[y][x]);
+        fprintf(out, "%c%c", key[w][z], key[y][x]);
+    }
+    fclose(out);
 }
 
-void decrypt(char message[], int shift) {
-    char ch;
-    for (int i = 0; message[i] != '\0'; ++i) {
-        ch = message[i];
-        if (ch >= 'a' && ch <= 'z') {
-            ch = ch - shift;
-            if (ch < 'a') {
-                ch = ch + 'z' - 'a' + 1;
-            }
-            message[i] = ch;
-        } else if (ch >= 'A' && ch <= 'Z') {
-            ch = ch - shift;
-            if (ch < 'A') {
-                ch = ch + 'Z' - 'A' + 1;
-            }
-            message[i] = ch;
+int main() 
+{
+    int i, j, k = 0, l, m = 0, n;
+    char key[MX][MX], keyminus[25], keystr[10], str[25] = {0};
+    char alpa[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    printf("\nEnter key:");
+    gets(keystr);
+    printf("\nEnter the plain text:");
+    gets(str);
+    n = strlen(keystr);
+    for (i = 0; i < n; i++) 
+    {
+        if (keystr[i] == 'j') keystr[i] = 'i';
+        else if (keystr[i] == 'J') keystr[i] = 'I';
+        keystr[i] = toupper(keystr[i]);
+    }
+    for (i = 0; i < strlen(str); i++) {
+        if (str[i] == 'j') str[i] = 'i';
+        else if (str[i] == 'J') str[i] = 'I';
+        str[i] = toupper(str[i]);
+    }
+    j = 0;
+    for (i = 0; i < 26; i++)
+    {
+        for (k = 0; k < n; k++)
+        {
+            if (keystr[k] == alpa[i]) break;
+            else if (alpa[i] == 'J') break;
+        }
+        if (k == n)
+        {
+            keyminus[j] = alpa[i];
+            j++;
         }
     }
-    printf("Decrypted message: %s\n", message);
-}
-
-int main() {
-    char message[100];
-    int shift;
-
-    printf("Enter a message: ");
-    gets(message);  // reads a line of text
-
-    printf("Enter shift amount: ");
-    scanf("%d", &shift);
-
-    // Make a copy of the message to decrypt later
-    char encrypted_message[100];
-    strcpy(encrypted_message, message);
-
-    encrypt(encrypted_message, shift);
-    decrypt(encrypted_message, shift);
-
+    k = 0;
+    for (i = 0; i < MX; i++) 
+    {
+        for (j = 0; j < MX; j++)
+        {
+            if (k < n)
+            {
+                key[i][j] = keystr[k];
+                k++;
+            } 
+            else
+            {
+                key[i][j] = keyminus[m];
+                m++;
+            }
+            printf("%c ", key[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n\nEntered text :%s\nCipher Text :",str);
+    for (i = 0; i < strlen(str); i++) 
+    {
+        if (str[i] == 'J') str[i] = 'I';
+        if (str[i + 1] == '\0') playfair(str[i], 'X', key);
+        else
+        {
+            if (str[i + 1] == 'J') str[i + 1] = 'I';
+            if (str[i] == str[i + 1]) playfair(str[i], 'X', key);
+            else 
+            {
+                playfair(str[i], str[i + 1], key);
+                i++;
+            }
+        }
+  
+    }
+     printf("\nDecrypted text:%s",str);
     return 0;
 }
 
@@ -190,7 +260,8 @@ int main() {
 
 
 ## OUTPUT:
-![Screenshot 2024-10-14 152456](https://github.com/user-attachments/assets/a5d46562-c045-4a54-b00e-0627a361ad89)
+![cr1](https://github.com/user-attachments/assets/eb20d39b-12a7-476b-a349-049f6391f047)
+
 
 ## RESULT:
 The program is executed successfully
