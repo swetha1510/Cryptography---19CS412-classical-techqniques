@@ -332,7 +332,7 @@ The cipher can, be adapted to an alphabet with any number of letters. All arithm
 
 
 ## PROGRAM:
-'''
+```
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -427,7 +427,7 @@ int main() {
     return 0;
 }
 
-'''
+```
 ## OUTPUT:
 
 ![Screenshot 2024-10-23 210439](https://github.com/user-attachments/assets/68571965-f21f-42fe-ab3c-089ddb68beac)
@@ -542,8 +542,6 @@ void decipher() {
 }
 
 ```
-
-
 ## OUTPUT:
 
 ![Screenshot 2024-10-23 210619](https://github.com/user-attachments/assets/941d27f1-2db3-438d-ab58-ece81a016133)
