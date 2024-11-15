@@ -9,7 +9,6 @@ Design of Caeser Cipher algorithnm
 ### Step 2:
 Implementation using C or pyhton code
 ### Step 3:
-
 1.	In Ceaser Cipher each letter in the plaintext is replaced by a letter some fixed number of positions down the alphabet.
 2.	For example, with a left shift of 3, D would be replaced by A, E would become B, and so on.
 3.	The encryption can also be represented using modular arithmetic by first transforming the letters into numbers, according to the   
@@ -17,9 +16,8 @@ Implementation using C or pyhton code
 4.	Encryption of a letter x by a shift n can be described mathematically as,
                        En(x) = (x + n) mod26
 5.	Decryption is performed similarly,
-                       Dn (x)=(x - n) mod26
+6.	                      Dn (x)=(x - n) mod26
 ## PROGRAM:
-PROGRAM:
 ```
 #include <stdio.h>
 #include <string.h>
@@ -88,8 +86,9 @@ int main() {
 ```
 ## OUTPUT:
 ![Screenshot 2024-10-23 210046](https://github.com/user-attachments/assets/680f8713-a399-4305-a394-053a3f9813a8)
+
 ## RESULT:
-The program is executed successfully
+ The program is executed successfully
 ---------------------------------
 
 # PlayFair Cipher
