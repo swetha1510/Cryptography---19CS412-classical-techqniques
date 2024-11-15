@@ -88,7 +88,7 @@ int main() {
 ![Screenshot 2024-10-23 210046](https://github.com/user-attachments/assets/680f8713-a399-4305-a394-053a3f9813a8)
 
 ## RESULT:
- The program is executed successfully
+The program is executed successfully
 ---------------------------------
 
 # PlayFair Cipher
