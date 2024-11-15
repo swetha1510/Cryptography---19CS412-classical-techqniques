@@ -129,7 +129,7 @@ To decrypt, use the INVERSE (opposite) of the last 3 rules, and the 1st as-is (d
 
 
 ## PROGRAM:
-'''
+```
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -294,10 +294,7 @@ int main() {
 
     return 0;
 }
-
-'''
-
-
+```
 ## OUTPUT:
 
 ![Screenshot 2024-10-23 210243](https://github.com/user-attachments/assets/60a1b7d1-df6d-43fe-883d-4affb74b8fd7)
